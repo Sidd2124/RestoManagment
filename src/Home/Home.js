@@ -261,7 +261,7 @@ const Home = () => {
 
   const updateInServer = async (item) => {
     setAdding(false)
-    const URL = "https://restomenu-b798e-default-rtdb.firebaseio.com/data/items.json";
+    const URL = "https://restomenu-b798e-default-rtdb.firebaseio.com/data.json";
     try {
       const posting = await axios.post(URL, item);
      
@@ -276,7 +276,7 @@ const Home = () => {
 
   const erase = async (id) => {
     setAdding(false)
-    const itemsRef = database.ref('data/items');
+    const itemsRef = database.ref('data');
     itemsRef.once('value', (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         const item = childSnapshot.val();
