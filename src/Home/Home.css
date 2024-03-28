@@ -71,4 +71,21 @@
       transform: translateY(-20px);
     }
   }
+
+  .Loading{
+ 
+    background-color: grey;
+    padding: 50px;
+    border-radius: 50%;
+    margin-top: 230px;
+  }
+  .LoadingContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .Decoration{
+    text-decoration: none;
+  }
   

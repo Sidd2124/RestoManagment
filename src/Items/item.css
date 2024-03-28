@@ -44,18 +44,9 @@ button {
   /* Default button style */
   button {
     color: #ffffff;
+    
     background-color: #05aef7; /* Primary color */
   }
   
-  /* Hover effect */
-  button:hover {
-    background-color: #0056b3; /* Darker shade of primary color */
-  }
-  
-  /* Active/focus state */
-  button:focus,
-  button:active {
-    outline: none;
-    background-color: #0056b3; /* Darker shade of primary color */
-  }
+
   

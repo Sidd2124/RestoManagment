@@ -5,9 +5,9 @@ import axios from 'axios';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 import { useState } from 'react';
-
 import Buttons from '../ButtonItems/ButtonItems'
-
+import {DotLoader} from 'react-spinners'
+import {Link} from 'react-router-dom'
 const FoodItems = [
   {
     id: "1",
@@ -119,6 +119,119 @@ const FoodItems = [
     Quantity: "250 ML",
     Type: "Beverages"
   },
+  {
+    id: "16",
+    Name: "Vada",
+    Price: 35,
+    Image: "https://i.ibb.co/2K2nWpn/Cabbage-Vada-Recipe-Urad-Dal-Vada-With-Cabbage-Muttaikose-Vadai.jpg",
+    Rating: "4.0",
+    Type: "Breakfast"
+  },
+  {
+    id: "17",
+    Name: "Puri",
+    Price: 35,
+    Image: "https://i.ibb.co/0jPHLc3/Bedmi-Puri-spiced-whole-wheat-Indian-puffed-bread-Bliss-of-Cooking.jpg",
+    Rating: "4.2",
+    Type: "Breakfast"
+  },
+  {
+    id: "18",
+    Name: "Uthapam",
+    Price: 30,
+    Image: "https://i.ibb.co/zhXtFTy/Tam-Brahm-Style-Arisi-Upma-Savoury-Rice-Upma-Traditional-Tiffin-Recipe-from-Tamil-Nadu-Gluten-Free-a.jpg",
+    Rating: "4.0",
+    Type: "Breakfast"
+  },
+  {
+    id: "19",
+    Name: "Ponganalu",
+    Price: 35,
+    Image: "https://i.ibb.co/T2ZPJqT/Savory-Paniyaram-Kuzhi-Paniyaram-Rice-and-Lentil-Dumplings-Video-NISH-KITCHEN.jpg",
+    Rating: "4.4",
+    Type: "Breakfast"
+  },
+  {
+    id: "20",
+    Name: "Maisure Bajji",
+    Price: 30,
+    Image: "https://i.ibb.co/rfbcMKX/Mysore-Bonda-02-1024x730.webp",
+    Rating: "4.5",
+    Type: "Breakfast"
+  },
+  {
+    id: "21",
+    Name: "Onion Dosa",
+    Price: 40,
+    Image: "https://i.ibb.co/wcpkqZQ/Onion-Dosa-Recipe-dosa-recipe-Yummy-Indian-Kitchen.jpg",
+    Rating: "4.4",
+    Type: "Breakfast"
+  },
+    {
+    id: "22",
+    Name: "Veg Meals",
+    Price: 70,
+    Image: "https://i.ibb.co/SnSCwLp/image-750x-64d1fd6ab44c0.jpg",
+    Rating: "4.6",
+    Type: "Lunch"
+  },
+
+  {
+    id: "23",
+    Name: "Jeera Rice",
+    Price: 120,
+    Image: "https://i.ibb.co/mG861Yg/Jeera-Rice-Indian-Cumin-Rice.jpg",
+    Rating: "4.1",
+    Type: "Lunch"
+  },
+  {
+    id: "24",
+    Name: "Chicken Curry",
+    Price: 160,
+    Image: "https://i.ibb.co/tMKpW9t/Easy-Indian-Chicken-and-Potato-Curry-Feast-with-Safiya.jpg",
+    Rating: "4.7",
+    Type: "Lunch"
+  },
+  {
+    id: "25",
+    Name: "Veg Biryani",
+    Price: 150,
+    Image: "https://i.ibb.co/5Ly4kRz/Pulao-Recipe-Restaurant-Style-Vegetable-Pulao-Cubes-N-Juliennes.jpg",
+    Rating: "4.6",
+    Type: "Lunch"
+  },
+  {
+    id: "26",
+    Name: "Sambar Rice",
+    Price: 140,
+    Image: "https://i.ibb.co/BnxjBXy/Bisi-Bele-Bath-Karnataka-Style-Sambar-Rice-Karnataka-Style-Sambar-Sadam.jpg",
+    Rating: "4.6",
+    Type: "Lunch"
+  },
+  {
+    id: "27",
+    Name: "Avakay Rice",
+    Price: 130,
+    Image: "https://i.ibb.co/Z1P5qnt/EYIVy-h-UEAAYmi-E.jpg",
+    Rating: "4.7",
+    Type: "Lunch"
+  },
+  {
+    id: "28",
+    Name: "Chapathi",
+    Price: 50,
+    Image: "https://i.ibb.co/wQsvWfy/KADAI-PANEER-RECIPE-PANEER-SIDE-DISH-FOR-CHAPATHI.jpg",
+    Rating: "4.5",
+    Type: "Lunch"
+  },
+  {
+    id: "29",
+    Name: "Parota",
+    Price: 50,
+    Image: "https://i.ibb.co/cyfGxPw/Parota.jpg",
+    Rating: "4.6",
+    Type: "Lunch"
+  },
 ];
 
 const Types=[
@@ -127,6 +240,8 @@ const Types=[
 
 const Home = () => {
     const [foodType,setfoodType]=useState("Breakfast")
+    const [adding,setAdding]=useState(true)
+   
 
     
 
@@ -145,24 +260,33 @@ const Home = () => {
   const database = firebase.database();
 
   const updateInServer = async (item) => {
+    setAdding(false)
     const URL = "https://restomenu-b798e-default-rtdb.firebaseio.com/data/items.json";
     try {
       const posting = await axios.post(URL, item);
+     
       console.log(posting);
-      alert('Item Added Successfully');
+     
+      alert("Item Added SuccesFully")
+      setAdding(true)
     } catch (error) {
       console.log(error);
     }
   };
 
   const erase = async (id) => {
+    setAdding(false)
     const itemsRef = database.ref('data/items');
     itemsRef.once('value', (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         const item = childSnapshot.val();
         if (item.id === id) {
           childSnapshot.ref.remove();
-         alert("Item Deletes Successfully")
+        
+          alert("Item Added SuccesFully")
+         
+         setAdding(true)
+       
         }
       });
     });
@@ -177,6 +301,7 @@ const FinelInfo=FoodItems.filter((each)=>each.Type===foodType)
         <div className='Banner'>
             <div>     <h1>Ideal Kitchen</h1>
       <h3>Update Your Menu...</h3>
+     
       <div className='Row'>
         {Types.map((each)=><Buttons ButtonName={each} NewType={UpdateType} isActive={foodType===each}/>)}
       </div>
@@ -185,13 +310,16 @@ const FinelInfo=FoodItems.filter((each)=>each.Type===foodType)
       <img src="https://i.gifer.com/ID5G.gif" alt="Chef Logo"/>
       
       </div>
+      <Link className="Decoration" to="/Orders">
       <button className='Orders'> Check Your Orders</button>
-      <div className='FoodItem Top'>
+      </Link>
+      {adding?<div className='FoodItem Top'>
        
-        {FinelInfo.map((each) => (
-          <FoodItem Details={each} key={each.id} Adding={updateInServer} Remove={erase} />
-        ))}
-      </div>
+       {FinelInfo.map((each) => (
+         <FoodItem Details={each} key={each.id} Adding={updateInServer} Remove={erase} />
+       ))}
+     </div>:<div className='LoadingContainer'><DotLoader className='Loading' color="orange"/></div>}
+      
     </div>
   );
 }
