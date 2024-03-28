@@ -1,0 +1,10 @@
+.ButtonType{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+.ButtonTypes{
+    background-color: rgba(128, 128, 128, 0.432);
+    border: 1px solid black;
+    color: black;
+}
